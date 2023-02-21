@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+<div style="display: flex; flex-direction: row; justify-content: space-between; margin-right: 50px; margin-left: 10px;">
+    <h1>Hi {{ user.username }}!</h1>
+    <div>
+        <p><a href="{% url 'logout' %}" style="margin-right: 10px;">Log Out</a></p>
+        <a href="{% url 'create_post' %}"><button>Create new Post</button></a>
+    </div>
+
+</div>
+
+{% else %}
+<div style="display: flex; flex-direction: row; justify-content: space-between; margin-right: 50px; margin-left: 10px;">
+    <h1>You are not logged in</h1>
+    <div>
+        <a href="{% url 'login' %}" style="margin-right: 5px;">Log In</a>
+        <a href="{% url 'signup' %}">Sign Up</a>
+    </div>
+</div>
+
+{% endif %}
+<div style="display: flex; flex-direction: column;">
+    {% for post in post_list %}
+    <a style="margin-left: 20px; margin-bottom: 20px;" href="{% url 'post_detail' post.id  %}">{{post.title}} </a>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

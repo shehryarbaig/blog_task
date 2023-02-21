@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>{{ post.title }} </h1>
+<p>{{ post.author }} | {{ post.created_on }}</p>
+<p>{{ post.content }}</p>
+{% if user.is_authenticated%}
+{%if post.author == user%}
+<form method="post">
+    {% csrf_token %}
+    <label for="my_text_field">Edit Blog</label>
+    <textarea id="my_text_field" name="my_text_field">{{ post.content }}</textarea>
+    <button type="submit">Save</button>
+</form>
+<a href="{% url 'delete' post.id%}"><button>Delete Post</button></a>
+
+{% endif %}
+
+<div style="display: flex; flex-direction: row; justify-content: space-between; margin-right: 50px; margin-left: 10px;">
+    <h1></h1>
+    <a href="{% url 'logout' %}">Log Out</a>
+</div>
+{% else %}
+<div style="display: flex; flex-direction: row; justify-content: space-between; margin-right: 50px; margin-left: 10px;">
+    <h1></h1>
+    <a href="{% url 'login' %}">Log In</a>
+</div>
+
+{% endif %}
+
+
+
+{% endblock content %}
