@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Create Post</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" name="author" value="{{ request.user.id }}">
+    <button type="submit">Create</button>
+</form>
+
+{% if user.is_authenticated %}
+<div style="display: flex; flex-direction: row; justify-content: space-between; margin-right: 50px; margin-left: 10px;">
+    <h1></h1>
+
+    <p><a href="{% url 'logout' %}">Log Out</a></p>
+</div>
+
+{% else %}
+<div style="display: flex; flex-direction: row; justify-content: space-between; margin-right: 50px; margin-left: 10px;">
+    <h1></h1>
+    <a href="{% url 'login' %}">Log In</a>
+</div>
+
+{% endif %}
+
+
+
+{% endblock content %}
